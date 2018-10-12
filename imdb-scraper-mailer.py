@@ -132,8 +132,8 @@ for url in base_urls:
     print()
 
     # INDEXING MONTHS
-    short = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.']
-    long = ['January', 'February', 'March', 'April', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    short = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'Jun.', 'May', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.']
+    long = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     release_dates = {}
 
     for i,x in enumerate(div):
@@ -167,13 +167,13 @@ for url in base_urls:
 
             # AIRS ON THIS MONTH
             if(month == current_date.month) and (year == current_date.year):
-                message = 'The next season airs this month -> ' + str(month) + '' + str(year)
+                message = 'The next episode/season airs this month, ' + long[month-1] + ' ' + str(year)
                 print(message)
                 break
 
             # AIRS ON MONTH AFTER THIS MONTH
             elif(month > current_date.month) and (year >= current_date.year):
-                message = 'The next season airs on -> ' + str(month) + '' + str(year)
+                message = 'The next episode/season airs on ' + long[month-1] + ' ' + str(year)
                 print(message)
                 break
 
@@ -186,13 +186,19 @@ for url in base_urls:
 
             # AIRS TODAY
             if(date == current_date.day) and (month == current_date.month) and (year == current_date.year):
-                message = 'The episode airs today!! -> ' + str(date) + '' + str(month) + '' + str(year)
+                message = 'The episode/season airs today!! -> ' + str(date) + 'th ' + long[month-1] + ' ' + str(year)
                 print(message)
                 break
 
-            # AIRS ON DATE AFTER TODAY
+            # AIRS IN FUTURE WHERE dates > current date
             elif (date > current_date.day) and (month >= current_date.month) and (year >= current_date.year):
-                message = 'The next episode airs on -> ' + str(date) + '' + str(month) + '' + str(year)
+                message = 'The next episode/season airs on -> ' + str(date) + 'th ' + long[month-1] + ' ' + str(year)
+                print(message)
+                break
+
+            # AIRS IN FUTURE WHERE dates < current date, but month > current month
+            elif (date <= current_date.day) and (month > current_date.month) and (year >= current_date.year):
+                message = 'The next episode/season airs on -> ' + str(date) + 'th ' + long[month-1] + ' ' + str(year)
                 print(message)
                 break
 
@@ -203,16 +209,16 @@ for url in base_urls:
             
             # SAME YEAR
             if year == current_date.year:
-                message = "The next season begins this year -> " + str(year)
+                message = "The next episode/season begins this year i.e. {}!".format(str(year))
                 print(message)
                 break
 
             # UPCOMING YEARS
             if year > current_date.year:
-                message = "The next season begins in -> " + str(year)
+                message = "The next episode/season begins in {}!".format(str(year))
                 print(message)
                 break
-        
+
     if (year < current_date.year) or (month < current_date.month and year <= current_date.year) or (date < current_date.day and month == current_date.month and year == current_date.year):
         message = "The show has finished streaming all its episodes!"
         print(message)
