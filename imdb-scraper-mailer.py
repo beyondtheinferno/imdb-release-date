@@ -4,6 +4,7 @@ import re
 import datetime
 import smtplib
 import email.message
+import sqlite3
 
 # ----------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------
@@ -21,6 +22,17 @@ def isValidEmail(email):
             return True
     return False
 
+def saveSQL(email, shows, urls, d):
+    conn = sqlite3.connect('data/userQueries')
+    cur = conn.cursor()
+    cur.execute('''CREATE TABLE IF NOT EXISTS Queries(Id INTEGER PRIMARY KEY,
+MailID TEXT, Shows TEXT, BaseURLs STRING, Date DATE)''')
+    conn.execute('''INSERT INTO Queries(MailID, Shows, BaseURLs, Date)
+values (?,?,?,?)''', (email, shows, urls, d))
+    print("Successfully updated USER QUERIES in SQLITE3 DB!!")
+    conn.commit()
+    conn.close()
+
 # ----------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------
 # USER INPUT -
@@ -34,7 +46,8 @@ while(True):
         print("You've entered a wrong email id!! Please enter the right one!")
 
 # INPUT TV SHOWS
-tv_shows = input("Enter the name of TV Shows (separated by commas) -> ").split(',')
+tv_show = input("Enter the name of TV Shows (separated by commas) -> ")
+tv_shows = tv_show.split(',')
 for i in range(len(tv_shows)):
     tv_shows[i] = tv_shows[i].lstrip()
     tv_shows[i] = tv_shows[i].rstrip()
@@ -324,4 +337,6 @@ s.starttls()
 s.login(msg['From'], password)
 s.sendmail(msg['From'], [msg['To']], msg.as_string())
 
-
+# SAVE INPUT DETAILS IN SQL
+url = ', '.join(base_urls)
+saveSQL(to_email_id, tv_show, url, current_date)
