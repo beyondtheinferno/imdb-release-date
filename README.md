@@ -32,6 +32,13 @@ The mail will contain the HTML content as follows -
 
 ![output2](https://github.com/beyondtheinferno/imdb-release-date/blob/master/assets/output2.png)
 
+## TO DO - 
+
+- [] Reduce the code redundancy.
+- [] Add extra details like genre, summary in the mail body for each show.
+- [] Add support for Movies.
+
+
 
 
 
