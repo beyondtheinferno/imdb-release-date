@@ -34,9 +34,9 @@ The mail will contain the HTML content as follows -
 
 ## TO DO - 
 
-- [] Reduce the code redundancy.
-- [] Add extra details like genre, summary in the mail body for each show.
-- [] Add support for Movies.
+- [ ] Reduce the code redundancy.
+- [ ] Add extra details like genre, summary in the mail body for each show.
+- [ ] Add support for Movies.
 
 
 
